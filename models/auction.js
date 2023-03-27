@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-class Action extends Sequelize.Model{
+class Auction extends Sequelize.Model{
     static initiate(sequelize){
-        Action.init({
+        Auction.init({
             bid: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
@@ -29,4 +29,4 @@ class Action extends Sequelize.Model{
     }
 };
 
-module.exports = Action;
+module.exports = Auction;
