@@ -24,7 +24,7 @@ exports.join = async (req, res, next)=>{
 }
 
 exports.login = (req, res, next)=>{
-    passport.authenticate('local',(authError, user, info)=>{
+    passport.authenticate('local',(authError, user, info)=>{ // 특정 Strategy 와 함께 콜백이 호출됨 (local-> passport-local)
         if (authError){
             console.error(authError);
             return next(authError);
@@ -32,14 +32,14 @@ exports.login = (req, res, next)=>{
         if (!user){
             return res.redirect(`/?loginError=${info.message}`);
         }
-        return req.login(user, (loginError)=>{
+        return req.login(user, (loginError)=>{ // local Strategy에 성공하면 req.login을 호출 -> passport.serializeUser호출
             if (loginError) {
                 console.error(loginError);
                 return next(loginError);
             }
             return res.redirect('/');
         });
-    })(req, res, next); // 미들웨어 내의 미들웨어레는 (req, res, next)를 붙여야함
+    })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙여야함
 };
 
 exports.logout = (req, res) =>{
